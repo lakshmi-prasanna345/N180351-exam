@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<style type="text/css">
+
+				#heading{
+				padding-top: 10px;
+				text-align: center;
+				border: 2px solid black;
+				border-radius: 10px;
+				width: 250px;
+				height: 60px;
+				color: red;
+				background:skyblue;
+			}
+			#ul{
+				font-size: 45px;
+			}
+			#beerdivision{
+				display: block;
+				width: 150px;
+				height: 40px;
+				border: 3px solid black;
+				padding: 5px;
+			}
+
+			input:focus {
+			  background-color: gray;
+			}
+			#f-div1{
+				margin: 0px 400px;
+				width: 23%;
+				border-radius: 5px;
+				background-color: cyan;
+				padding: 10px 80px ;
+			}
+</style>
+</head>
+<body>
+	<center>
+		<div id="heading" onmouseenter="changeColor()" onmouseleave="changeToNormal()">
+			<u id="ul" style="color:white;">F1H2O</u>RGUKT
+		</div>
+	</center>
+	<center>
+		<div id="f-div1">	
+ 		<form action="success.html" autocomplete="on" id="myForm" method="post">
+ 			<h2 id="f-h2">Form Validation</h2>
+
+			<input type="text" name="Name" placeholder="User Name" id="uname" oninput="userNameValidation()" required>
+
+			<input type="text" name="mail" placeholder="Email" id="mailid" oninput="mailValidation()">
+
+			<input type="text" id="phonenum" name="phone" placeholder="Phone number" oninput="phoneValidation()" required><br>
+
+
+			<select name="country" id="country" onclick="countryValidation()">
+				<option value="India" selected>India</option>
+				<option value="America">America</option>
+				<option value="England" selected>England</option>
+				<option value="Germany">Germany</option>
+			</select>
+			<br><br>
+
+
+			<div id="beerdivision">
+				<b>You want beer ?</b><br>
+				<input type="radio" name="beer" id="beeryes">yes
+				<input type="radio" name="beer" id="beerno">no<br>
+			</div>
+
+
+			<br>
+			Payment Type(DD or Account) :
+
+			<br><input type="text" placeholder="payment" id="pay-number" oninput="paymentValidation()" required><br>
+
+			<br> 
+			<b>Accomadation :</b><br>
+			<input type="radio" name="Accomadation" id="inuzvid">INUZVID
+			<input type="radio" name="Accomadation" id="ikadapa">IKADAPA<br>
+			<input type="radio" name="Accomadation" id="isklm">ISKLM
+			<input type="radio" name="Accomadation" id="iongole">IONGOLE<br>
+
+			<br><b>Food :</b><br>
+			<input type="checkbox" id="f1" name="foodItem" value="breakfast">Breakfast
+		 	<input type="checkbox" id="f2" name="foodItem" value="snacks">Snacks
+		 	<input type="checkbox" id="f3" name="foodItem" value="lunch">Lunch<br>
+		 	<input type="checkbox" id="f4" name="foodItem" value="tea">Teach
+		 	<input type="checkbox" id="f5" name="foodItem" value="coffee">Coffee
+		 	<input type="checkbox" id="f6" name="foodItem" value="eggs">Eggs<br>
+		 	<br>
+		 	Days :<input type="number" name="days" id="NoOfdays" oninput="Daycount()"><br>
+		 	<p style="width: 300px; height: 14px;" id="tcost"></p>
+
+		 	<br>
+			<input type="submit" style="width:150px; height:30px" id="submitButton" value="Submit" onclick="return validate()">
+		</form>
+	</div>
+	</center>
+		<script>
+				document.body.style.backgroundImage = "url('image1 (1).jpg')";
+				let c1=0;
+				let c2=0;
+				let c3=0;
+				let c4=0;
+
+
+
+				function userNameValidation() {
+				var user = document.getElementById('uname').value;
+				document.getElementById('uname').value=user.toUpperCase();
+				var pattern1 = /^f[\w]{4,9}$/i;
+
+				if(pattern1.test(user)){
+				c1=0;
+				document.getElementById('uname').style.backgroundColor="white";
+				}
+				else{
+				document.getElementById('uname').style.backgroundColor="red";
+				c1++;
+				}
+				}
+
+				function mailValidation() {
+				var mail = document.getElementById('mailid').value;
+				var pattern1 = /^[a-z0-9]*@[a-z]{2,7}(\.)(com|edu|in|net)$/i;
+
+				if(pattern1.test(mail)){
+				c2=0;
+				document.getElementById('mailid').style.backgroundColor="white";
+				}
+				else{
+				document.getElementById('mailid').style.backgroundColor="red";
+				c2++;
+				}
+				}
+
+				function phoneValidation() {
+
+				var phone = document.getElementById('phonenum').value;
+
+				var pattern1 = /(^(977)[0-9]{7}$|^[0-9]{4}-[0-9]{4}-[0-9]{4}$)/;
+				if(pattern1.test(phone)){
+				c3=0;
+				document.getElementById('phonenum').style.backgroundColor="white";
+				}
+				else{
+				document.getElementById('phonenum').style.backgroundColor="red";
+				c3++;
+				}
+				}
+				function countryValidation() {
+				var selectCountry = document.getElementById("country").value;
+				if(selectCountry=="India"){
+				document.getElementById("beerdivision").style.display="none"
+				}
+				else{
+				document.getElementById("beerdivision").style.display="block"
+				}
+				}
+
+
+				function paymentValidation(){
+				var pay=document.getElementById("pay-number").value;
+				var pattern1 = /(^(SBIN)[0-9]{7}$)|(^[0-9]{11}$)/;
+				if(pattern1.test(pay)){
+				c4=0;
+				document.getElementById('pay-number').style.backgroundColor="white";
+				}
+				else{
+				document.getElementById('pay-number').style.backgroundColor="red";
+				c4++;
+				}
+				}
+
+
+				let dayc=document.getElementById("NoOfdays").value;
+				dayc.addEventListener('keyup',Daycount);
+
+				function Daycount(){
+				if(document.getElementById('inuzvid').checked || document.getElementById('ikadapa').checked)
+				{
+				document.getElementById("tcost").innerText="Total Cost is "+(document.getElementById("NoOfdays").value*2000);
+				}
+				else if(document.getElementById('iongole').checked || document.getElementById('isklm').checked)
+				{
+				document.getElementById("tcost").innerText="Total Cost is "+(document.getElementById("NoOfdays").value*3000);
+				}
+				}
+
+				function changeColor(){
+				document.getElementById("heading").style.backgroundColor="green";
+				document.getElementById("heading").style.color="yellow";
+				document.getElementById("ul").style.color="yellow";
+
+				}
+				function changeToNormal(){
+				document.getElementById("heading").style.backgroundColor="skyblue";
+				document.getElementById("heading").style.color="red";
+				document.getElementById("ul").style.color="white";
+				}
+
+
+				function validate(){
+				if(c1==0 && c2==0 && c3==0 && c4==0)
+				return true;
+				else
+				return false;
+				}
+
+
+
+						</script>
+				</body>
+
+</html>
